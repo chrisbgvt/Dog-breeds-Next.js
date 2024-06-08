@@ -1,26 +1,15 @@
 import Search from "../../components/Search";
+import { IBreedData, IRandomImage } from "../../interfaces/breeds";
 import styles from "./page.module.css";
-
-interface BreedData {
-    message: {
-      [key: string]: string[];
-    };
-    status: string;
-}
-  
-interface ImagesResponse {
-    message: string;
-    status: string;
-}
 
 async function fetchBreeds() {
     const res = await fetch('https://dog.ceo/api/breeds/list/all', { cache: 'no-store' });
-    const categoryNames: BreedData = await res.json();
+    const categoryNames: IBreedData = await res.json();
     const breedNames = Object.keys(categoryNames?.message);
 
     const breedImagesPromises = breedNames.map(async (name) => {
         const res = await fetch(`https://dog.ceo/api/breed/${name}/images/random`, { cache: 'no-store' });
-        const categoryImgs: ImagesResponse = await res.json();
+        const categoryImgs: IRandomImage = await res.json();
         return categoryImgs?.message;
     });
 

@@ -3,19 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 // import styles from "./page.module.css";
 import { useEffect, useState } from 'react';
+import { IBreedImages } from "../../../interfaces/breeds";
 import { useLikedBreeds } from "../../../context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 
-interface ImagesResponse {
-    message: string[];
-    status: string;
-}
-
 async function fetchCategory(category: string) {
     const res = await fetch(`https://dog.ceo/api/breed/${category}/images`);
-    const categoryImgs: ImagesResponse = await res.json();
+    const categoryImgs: IBreedImages = await res.json();
     return categoryImgs.message;
 }
 

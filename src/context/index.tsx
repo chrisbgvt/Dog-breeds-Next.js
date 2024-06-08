@@ -1,23 +1,10 @@
 "use client";
 import React, { createContext, useContext, useState } from 'react';
+import { ILikedBreedsContextType, ILikedBreedsProviderProps } from "../interfaces/breeds";
 
-// interface Breed {
-//   url: string;
-// }
+export const LikedBreedsContext = createContext<ILikedBreedsContextType | undefined>(undefined);
 
-interface LikedBreedsContextType {
-  likedBreeds: string[];
-  addBreed: (url: string) => void;
-  removeBreed: (url: string) => void;
-}
-
-export const LikedBreedsContext = createContext<LikedBreedsContextType | undefined>(undefined);
-
-interface LikedBreedsProviderProps {
-  children: React.ReactNode;
-}
-
-export const LikedBreedsProvider: React.FC<LikedBreedsProviderProps> = ({ children }) => {
+export const LikedBreedsProvider: React.FC<ILikedBreedsProviderProps> = ({ children }) => {
   const [likedBreeds, setLikedBreeds] = useState<string[]>([]);
 
   const addBreed = (url: string): void => {
@@ -35,7 +22,7 @@ export const LikedBreedsProvider: React.FC<LikedBreedsProviderProps> = ({ childr
   );
 };
 
-export const useLikedBreeds = (): LikedBreedsContextType => {
+export const useLikedBreeds = (): ILikedBreedsContextType => {
     const context = useContext(LikedBreedsContext);
     if (!context) {
       throw new Error('useLikedBreeds must be used within a LikedBreedsProvider');
